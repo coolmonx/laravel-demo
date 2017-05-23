@@ -32,16 +32,16 @@ class LoginController extends Controller
                 ], 500);
         }
 
-        $user = $JWTAuth->parseToken()->authenticate();
+        $user = $JWTAuth->authenticate($token);
 
-        // Token valid; but login email is invalid
+ /*       // Token valid; but login email is invalid
         if ($request->email != $user->email) {
             return response()->json([
                 'status' => '401',
                 'detail' => 'Token does not match login account!'
                 ], 401);            
         }
-
+*/
         return response()
             ->json([
                 'status' => '200',

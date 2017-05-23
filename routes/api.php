@@ -9,9 +9,18 @@ $api->version('v1', function (Router $api) {
     $api->group(['prefix' => 'auth'], function(Router $api) {
         $api->post('signup', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
         $api->post('login', 'App\\Api\\V1\\Controllers\\LoginController@login');
-
         $api->post('recovery', 'App\\Api\\V1\\Controllers\\ForgotPasswordController@sendResetEmail');
         $api->post('reset', 'App\\Api\\V1\\Controllers\\ResetPasswordController@resetPassword');
+
+        $api->get('signup', function() {
+            return response()->json([
+                'status' => '405',
+                'detail' => 'HTTP GET method is not allowed.'
+            ], 405);
+    });
+
+
+
     });
 
     $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
@@ -30,13 +39,13 @@ $api->version('v1', function (Router $api) {
             }
         ]);
     });
-
+/*
     $api->get('hello', function() {
         return response()->json([
             'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
         ]);
     });
-
+*/
     $api->group(['middleware' => 'api.auth'], function ($api) {
         $api->get('books', 'App\Api\V1\Controllers\BookController@index');
         $api->get('books/{id}', 'App\Api\V1\Controllers\BookController@show');

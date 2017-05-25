@@ -53,6 +53,8 @@ $api->version('v1', function (Router $api) {
         $api->put('books/{id}', 'App\Api\V1\Controllers\BookController@update');
         $api->delete('books/{id}', 'App\Api\V1\Controllers\BookController@destroy');
 
+        // Order
+        $api->post('orders', 'App\Api\V1\Controllers\OrderController@purchase');
     });
 
     $api->group(['prefix' => 'v1'], function(Router $api) {
@@ -62,7 +64,7 @@ $api->version('v1', function (Router $api) {
 
         // Tickets
         $api->get('events/{event_id}/tickets', 'App\Api\V1\Controllers\TicketController@index');
-        $api->get('events/{event_id}/tickets/{ticket_id}', 'App\Api\V1\Controllers\TicketController@show');
+        $api->get('events/{event_id}/tickets/{ticket_id}', 'App\Api\V1\Controllers\TicketController@show');        
     });
 
 });

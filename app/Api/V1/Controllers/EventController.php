@@ -23,8 +23,13 @@ class EventController extends Controller
 
         $event = Event::find($id);
 
-        if(!$event)
-            throw new NotFoundHttpException; 
+        if(!$event) {
+            //throw new NotFoundHttpException; 
+            return response()->json([
+                'status' => '404',
+                'detail' => 'Event not found.'
+                ], 404);
+        }
 
         return $event;
     }

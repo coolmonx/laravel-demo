@@ -59,6 +59,10 @@ $api->version('v1', function (Router $api) {
         // Events
         $api->get('events', 'App\Api\V1\Controllers\EventController@index');
         $api->get('events/{id}', 'App\Api\V1\Controllers\EventController@show');
+
+        // Tickets
+        $api->get('events/{event_id}/tickets', 'App\Api\V1\Controllers\TicketController@index');
+        $api->get('events/{event_id}/tickets/{ticket_id}', 'App\Api\V1\Controllers\TicketController@show');
     });
 
 });

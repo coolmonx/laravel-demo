@@ -6,7 +6,7 @@ use Dingo\Api\Routing\Router;
 $api = app(Router::class);
 
 $api->version('v1', function (Router $api) {
-    $api->group(['prefix' => 'auth'], function(Router $api) {
+    $api->group(['prefix' => 'v1/auth'], function(Router $api) {
         $api->post('signup', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
         $api->post('login', 'App\\Api\\V1\\Controllers\\LoginController@login');
         $api->post('recovery', 'App\\Api\\V1\\Controllers\\ForgotPasswordController@sendResetEmail');
@@ -46,12 +46,19 @@ $api->version('v1', function (Router $api) {
         ]);
     });
 */
-    $api->group(['middleware' => 'api.auth'], function ($api) {
+    $api->group(['prefix' => 'v1','middleware' => 'api.auth'], function ($api) {
         $api->get('books', 'App\Api\V1\Controllers\BookController@index');
         $api->get('books/{id}', 'App\Api\V1\Controllers\BookController@show');
         $api->post('books', 'App\Api\V1\Controllers\BookController@store');
         $api->put('books/{id}', 'App\Api\V1\Controllers\BookController@update');
         $api->delete('books/{id}', 'App\Api\V1\Controllers\BookController@destroy');
+
+    });
+
+    $api->group(['prefix' => 'v1'], function(Router $api) {
+        // Events
+        $api->get('events', 'App\Api\V1\Controllers\EventController@index');
+        $api->get('events/{id}', 'App\Api\V1\Controllers\EventController@show');
     });
 
 });
